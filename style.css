@@ -1,0 +1,469 @@
+:root {
+    --bg-color: #030305;
+    --text-color: #ffffff;
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Intro Overlay */
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #000;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+/* Cinematic Intro Car */
+.intro-car-wrapper {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 700px;
+    height: 400px;
+    opacity: 0; /* Faint silhouette initially */
+    z-index: 5;
+    will-change: transform, opacity;
+}
+
+/* Fog & Ground Effects */
+.intro-fog {
+    position: absolute;
+    bottom: -50px;
+    left: -100px;
+    right: -100px;
+    height: 250px;
+    background: radial-gradient(ellipse at center, rgba(30, 35, 45, 0.4) 0%, transparent 60%);
+    filter: blur(40px);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+}
+
+/* Image Replacement Styles */
+.bmw-drl-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: screen; /* Strips pure blacks, keeps the bright white LED lights visible */
+    filter: brightness(0.4) contrast(1.2); /* Made more visible initially! */
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    will-change: transform, filter, opacity;
+}
+
+
+
+
+/* Engine Start Button */
+.engine-start-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #1a1a1c 0%, #000 100%);
+    border: 2px solid #222;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 0 25px rgba(0,0,0,0.9), inset 0 0 10px rgba(255,59,48,0.1);
+    transition: all 0.3s ease;
+    animation: enginePulse 2s infinite alternate;
+}
+
+.engine-start-btn::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 59, 48, 0.3);
+    animation: pulseRing 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.btn-text {
+    color: #ff3b30;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 8px rgba(255,59,48,0.5);
+}
+
+.btn-subtext {
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    margin-top: 6px;
+    opacity: 0.7;
+}
+
+.engine-start-btn:hover {
+    box-shadow: 0 0 40px rgba(255,59,48,0.3), inset 0 0 20px rgba(255,59,48,0.2);
+    border-color: rgba(255,59,48,0.5);
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+@keyframes enginePulse {
+    0% { box-shadow: 0 0 25px rgba(0,0,0,0.9), inset 0 0 10px rgba(255,59,48,0.1); }
+    100% { box-shadow: 0 0 25px rgba(0,0,0,0.9), inset 0 0 25px rgba(255,59,48,0.3); }
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.95); opacity: 1; }
+    100% { transform: scale(1.25); opacity: 0; }
+}
+
+/* Intro Text */
+.intro-text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.intro-line {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: #fff;
+    text-shadow: 0 0 30px rgba(0,0,0,0.9);
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: translateY(20px);
+    width: 100%;
+    padding: 0 2rem;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 2rem;
+    z-index: 100;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 0.3rem;
+    color: rgba(255,255,255,0.7);
+    background: linear-gradient(90deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+/* Sections */
+.section {
+    position: relative;
+    width: 100%;
+    height: 100dvh; /* Better on mobile browsers */
+    min-height: 100vh; /* Fallback */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.img-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000; /* fallback */
+}
+
+.img-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(3,3,5,1) 100%);
+    z-index: 1;
+}
+
+.section.chapter .img-container::after {
+    background: radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, rgba(3,3,5,0.95) 100%);
+}
+
+.bg-img {
+    width: 100%;
+    height: 120%; /* Space for parallax */
+    object-fit: cover;
+    object-position: center;
+    /* initial transform is set by GSAP, but safe default */
+    transform: translateY(-10%); 
+    will-change: transform;
+    opacity: 0.6;
+}
+
+/* Hero Content */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    padding: 0 2rem;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-shadow: 0 20px 40px rgba(0,0,0,0.8);
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.8);
+    text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0.7;
+}
+
+.scroll-indicator span {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.scroll-indicator .line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.8), transparent);
+    animation: scrollLine 2s infinite ease-in-out;
+}
+
+@keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    50.1% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Chapter Content */
+.chapter-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+    display: flex;
+}
+
+.chapter-content.right {
+    justify-content: flex-end;
+}
+
+.chapter-content.left {
+    justify-content: flex-start;
+}
+
+.chapter-content.center {
+    justify-content: center;
+    text-align: center;
+}
+
+.text-block {
+    max-width: 500px;
+}
+
+.text-block h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #fff;
+    text-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+
+.text-block p {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    line-height: 1.8;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.text-block p.large-text {
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+}
+
+.text-block p.highlight {
+    font-family: var(--font-heading);
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    margin-top: 2rem;
+}
+
+.text-only {
+    background-color: var(--bg-color);
+}
+
+.glow-soft {
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.text-glow {
+    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+/* Final BMW Silhouette Scene */
+.final-scene {
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.car-wrapper {
+    position: absolute;
+    top: 30%;
+    width: 600px;
+    height: 300px;
+    transform: scale(0.85) translateY(40px);
+    opacity: 0;
+    /* Animated by GSAP */
+}
+
+/* Ensure image sizing consistency here */
+.final-drl {
+    filter: brightness(0.1) contrast(1.2); /* Starts dark until scrolled to */
+}
+
+/* Final Outline Text */
+.final-text-content {
+    position: absolute;
+    bottom: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    z-index: 10;
+}
+
+.final-line {
+    opacity: 0;
+    transform: translateY(20px);
+    color: #fff;
+}
+
+.tier-1 {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+}
+
+.tier-2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
+    text-shadow: 0 0 40px rgba(200, 230, 255, 0.4);
+    letter-spacing: 0.05em;
+    margin: 1rem 0;
+}
+
+.tier-3 {
+    font-family: var(--font-body);
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-weight: 300;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+    .car-wrapper {
+        transform: scale(0.55) translateY(40px);
+    }
+}
+
+/* Initial States for Animation */
+.hero-title, .hero-subtitle, .text-block h2, .text-block p {
+    opacity: 0;
+    transform: translateY(30px);
+}

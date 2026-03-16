@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harshid | The Night Ride</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <!-- GSAP Core & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Cinematic Audio System (Optimized preload) -->
+    <!-- Note: Recommended physical file structure:
+         harshid/assets/audio/
+           m4_ignition.mp3
+           m4_idle_loop.mp3
+           night_ambience.mp3
+           cinematic_whoosh.mp3
+           m4_rev.mp3
+    -->
+    <div id="audio-system" style="display: none;">
+        <audio id="sfx-ignition" src="https://cdn.freesound.org/previews/401/401554_5820033-lq.mp3" preload="auto"></audio>
+        <audio id="sfx-idle" src="https://cdn.freesound.org/previews/50/50897_179538-lq.mp3" preload="auto" loop></audio>
+        <audio id="sfx-ambience" src="https://cdn.freesound.org/previews/176/176587_1648170-lq.mp3" preload="auto" loop></audio>
+        <audio id="sfx-transition" src="https://cdn.freesound.org/previews/749/749415_16214459-lq.mp3" preload="auto"></audio>
+        <audio id="sfx-rev" src="https://cdn.freesound.org/previews/669/669623_5672786-lq.mp3" preload="auto"></audio>
+    </div>
+
+    <div class="intro-overlay">
+        <!-- BMW Cinematic Intro Scene -->
+        <div class="intro-car-wrapper">
+            <div class="intro-fog"></div>
+            <img src="assets/images/bmw_m4_drl_dark.jpg" alt="BMW M4" class="bmw-drl-img intro-drl">
+        </div>
+
+        <button class="engine-start-btn">
+            <span class="btn-text">START</span>
+            <span class="btn-subtext">ENGINE</span>
+        </button>
+
+        <div class="intro-text-container">
+            <p class="intro-line line-1">Some friendships are planned.<br>Some just happen.</p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">HARSHID // M4</div>
+    </nav>
+
+    <div class="smooth-wrapper">
+        <div class="smooth-content">
+            <!-- Hero -->
+            <section class="section hero" id="hero">
+                <div class="img-container">
+                    <img src="assets/images/bmw_m4_drl_dark.jpg" alt="BMW M4" class="bg-img" id="hero-img">
+                </div>
+                <div class="hero-content">
+                    <h1 class="hero-title">THE NIGHT RIDE</h1>
+                    <p class="hero-subtitle">A Story of Metal, Miles, and Memories</p>
+                </div>
+                <div class="scroll-indicator">
+                    <span>Scroll to Drive</span>
+                    <div class="line"></div>
+                </div>
+            </section>
+
+            <!-- Story Intro -->
+            <section class="section chapter text-only" id="story-intro">
+                <div class="chapter-content center">
+                    <div class="text-block has-glow">
+                        <p class="large-text">This story isn't about a car.</p>
+                        <p class="large-text delay-1">It's about a brother<br>who made every road more meaningful.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Harshid Intro -->
+            <section class="section chapter" id="harshid-intro">
+                <div class="img-container">
+                    <img src="assets/images/dark_road_night.png" alt="Dark night road" class="bg-img" loading="lazy">
+                </div>
+                <div class="chapter-content right">
+                    <div class="text-block">
+                        <p>You meet a lot of people in engineering.</p>
+                        <p>Most are just classmates.</p>
+                        <h2>That's Harshid.</h2>
+                        <p>The guy you trust with the keys to your ride.<br>And the keys to your secrets.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Passion -->
+            <section class="section chapter" id="passion">
+                <div class="img-container">
+                    <img src="assets/images/bmw_night_drive.png" alt="BMW M4" class="bg-img" loading="lazy">
+                </div>
+                <div class="chapter-content left">
+                    <div class="text-block">
+                        <p>Conversations about life.<br>Dreams about machines.</p>
+                        <p>BMW M4 Competition posters.<br>Late night talks about horsepower and freedom.</p>
+                        <p class="highlight">Not everyone understands that kind of obsession.<br>But we did.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Night Rides -->
+            <section class="section chapter" id="night-rides">
+                <div class="img-container">
+                    <img src="assets/images/car_misty_road.png" alt="Misty Road" class="bg-img" loading="lazy">
+                </div>
+                <div class="chapter-content right">
+                    <div class="text-block">
+                        <p>Midnight.</p>
+                        <p>No traffic. No noise.<br>Just the exhaust note and the blur of streetlights.</p>
+                        <p>Solving life's chaotic problems at highway speeds.</p>
+                        <p class="highlight">It was never about the destination.<br>Just that we were moving.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Emotional Connection -->
+            <section class="section chapter" id="emotional">
+                <div class="img-container">
+                    <img src="assets/images/empty_seat_night.png" alt="Empty Seat" class="bg-img" loading="lazy" style="object-position: left center;">
+                </div>
+                <div class="chapter-content center">
+                    <div class="text-block has-glow">
+                        <p>It's rare to find someone who doesn't judge.</p>
+                        <p>Someone who listens to the unfiltered, raw truth.</p>
+                        <p>The late-night conversations when the world is asleep.<br>No trying to impress. No pretending.</p>
+                        <h2>That's not just a friend. That's a brother.</h2>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reflection -->
+            <section class="section chapter text-only" id="reflection">
+                <div class="chapter-content center">
+                    <div class="text-block">
+                        <p class="large-text">Friendship isn't measured in years.<br>It's measured in moments.</p>
+                        <p class="large-text delay-1">The conversations.<br>The rides.<br>The silence that still feels comfortable.</p>
+                        <h2 class="delay-2 glow-soft">Somewhere along those roads<br>a friend became a brother.</h2>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Website Context -->
+            <section class="section chapter" id="website-context">
+                <div class="img-container">
+                    <img src="assets/images/dawn_reflection.png" alt="Dawn reflection" class="bg-img" loading="lazy">
+                </div>
+                <div class="chapter-content center">
+                    <div class="text-block has-glow">
+                        <p>I could've bought you a regular gift.</p>
+                        <p>Wrapped it in a box.</p>
+                        <p class="highlight">But we're engineers. We build things.</p>
+                        <p>And brotherhoods don't belong in boxes.<br>So I coded this road instead.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Scene / BMW Cinematic End -->
+            <section class="section final-scene" id="outro">
+                <div class="car-wrapper">
+                    <img src="assets/images/bmw_m4_drl_dark.jpg" alt="BMW M4" class="bmw-drl-img final-drl">
+                </div>
+                
+                <div class="final-text-content">
+                    <h2 class="final-line tier-1 text-glow">Another Mile On The Road</h2>
+                    <h1 class="final-line tier-2 text-glow">Happy Birthday, Harshid.</h1>
+                    <p class="final-line tier-3">The road continues.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
