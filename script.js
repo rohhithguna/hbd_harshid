@@ -12,7 +12,18 @@ const lenis = new Lenis({
 })
 
 // Sync GSAP with Lenis
-lenis.on('scroll', ScrollTrigger.update)
+let scrollTimeout;
+lenis.on('scroll', (e) => {
+    ScrollTrigger.update();
+    const nav = document.querySelector('.navbar');
+    if (nav) {
+        nav.classList.add('scrolling');
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            nav.classList.remove('scrolling');
+        }, 150);
+    }
+});
 
 gsap.ticker.add((time)=>{
   lenis.raf(time * 1000)
@@ -238,25 +249,42 @@ function initHeroAnimation() {
         opacity: 0.7,
         duration: 1.5,
         ease: 'power2.inOut'
+    }, 1.5)
+    .to('.navbar', {
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power2.inOut'
     }, 1.5);
 
     initScrollAnimations();
 }
 
 function initScrollAnimations() {
-    // Reveal logo on scroll
-    gsap.fromTo('.logo', 
-        { opacity: 0 },
-        {
-            opacity: 1,
-            duration: 1,
-            scrollTrigger: {
-                trigger: '#hero',
-                start: "bottom 90%",
-                toggleActions: "play none none reverse"
-            }
+    // Navigation Toggles
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const targetId = btn.getAttribute('data-target');
+            lenis.scrollTo(targetId, { duration: 2, offset: -80, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        });
+    });
+
+    // Active state sync with scroll
+    ScrollTrigger.create({
+        trigger: '#birthday-climax',
+        start: 'top center',
+        onEnter: () => {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            const bBtn = document.querySelector('.nav-btn[data-target="#birthday-climax"]');
+            if(bBtn) bBtn.classList.add('active');
+        },
+        onLeaveBack: () => {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            const sBtn = document.querySelector('.nav-btn[data-target="#story-intro"]');
+            if(sBtn) sBtn.classList.add('active');
         }
-    );
+    });
 
     // Chapter Animations
     const chapters = gsap.utils.toArray('.chapter');
@@ -327,6 +355,25 @@ function initScrollAnimations() {
             onEnterBack: () => audioSystem.playSectionTransition() // Play transition when scrolling upwards too
         });
     });
+
+    // Birthday Reveal Timeline
+    const bdayTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: '#birthday-climax',
+            start: "top 60%", // Triggers nicely when entering
+            toggleActions: "play none none reverse"
+        }
+    });
+
+    bdayTl.to('.date-main', { opacity: 1, y: 0, duration: 1.5, ease: "power2.out" })
+          .to('.date-sub', { opacity: 1, y: 0, duration: 1.5, ease: "power2.out" }, "-=1")
+          .to('.bday-line', {
+              opacity: 1,
+              y: 0,
+              duration: 2,
+              stagger: 1.5, // Total reveal will take around 10+ seconds
+              ease: "power2.out"
+          }, "-=0.5");
 
     // Prep Final Scene Rev effect slightly before the scene physically enters
     ScrollTrigger.create({
